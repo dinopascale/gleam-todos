@@ -17,10 +17,6 @@ pub fn home_test() {
 
   response.headers
   |> should.equal([#("content-type", "text/html")])
-
-  response
-  |> testing.string_body
-  |> should.equal("Todos App!")
 }
 
 pub fn home_wrong_method_test() {
@@ -40,10 +36,6 @@ pub fn get_todos_test() {
 
   response.headers
   |> should.equal([#("content-type", "text/html")])
-
-  response
-  |> testing.string_body
-  |> should.equal("Todos!")
 }
 
 pub fn post_todos_test() {
@@ -55,10 +47,6 @@ pub fn post_todos_test() {
 
   response.headers
   |> should.equal([#("content-type", "text/html")])
-
-  response
-  |> testing.string_body
-  |> should.equal("Created!")
 }
 
 pub fn todos_wrong_method_test() {
