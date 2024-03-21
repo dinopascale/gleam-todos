@@ -5,7 +5,7 @@ import gleam/string_builder
 pub fn index(req: Request) -> Response {
   use <- wisp.require_method(req, http.Get)
 
-  let html = string_builder.from_string("Todos WebApp!")
+  let html = string_builder.from_string("Todos App!")
   wisp.ok()
   |> wisp.html_body(html)
 }
