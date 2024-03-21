@@ -23,7 +23,8 @@ fn todos() -> Response {
       </form>
     ",
     )
-    |> string_builder.from_string()
+    |> templates.render
+    |> string_builder.from_string
 
   wisp.ok()
   |> wisp.html_body(html)
@@ -33,8 +34,8 @@ fn create_todo(_req: Request) -> Response {
   let html =
     templates.base()
     |> templates.set_title("Created successfully")
-    |> templates.set_main_content("")
-    |> string_builder.from_string()
+    |> templates.render
+    |> string_builder.from_string
   wisp.ok()
   |> wisp.html_body(html)
 }
