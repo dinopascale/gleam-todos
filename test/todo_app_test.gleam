@@ -1,3 +1,4 @@
+import gleam/string
 import gleeunit
 import gleeunit/should
 import wisp/testing
@@ -38,8 +39,8 @@ pub fn get_todos_test() {
   |> should.equal([#("content-type", "text/html")])
 }
 
-pub fn post_todos_test() {
-  let request = testing.post("/todos", [], "something")
+pub fn post_todos_happy_test() {
+  let request = testing.post_form("/todos", [], [#("name", "pippo")])
   let response = router.route(request)
 
   response.status
@@ -47,6 +48,19 @@ pub fn post_todos_test() {
 
   response.headers
   |> should.equal([#("content-type", "text/html")])
+
+  response
+  |> testing.string_body
+  |> string.contains("pippo")
+  |> should.be_true()
+}
+
+pub fn post_todos_unhappy_test() {
+  let request = testing.post_form("/todos", [], [#("a_key", "a_value")])
+  let response = router.route(request)
+
+  response.status
+  |> should.equal(400)
 }
 
 pub fn todos_wrong_method_test() {
