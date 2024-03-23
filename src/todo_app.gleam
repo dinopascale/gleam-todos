@@ -12,10 +12,12 @@ pub fn main() {
 
   let sql =
     "
-  create table if not exists todos (name text);
+  create table if not exists todos (id INTEGER PRIMARY KEY AUTOINCREMENT, name text not null);
 
   insert into todos (name) values
-  ('Test #1');
+  ('Todo #1'),
+  ('Todo #2'),
+  ('Todo #3');
   "
   let assert Ok(Nil) = sqlight.exec(sql, conn)
 
