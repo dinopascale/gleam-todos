@@ -11,7 +11,7 @@ pub fn main() {
 }
 
 fn with_context(testcase: fn(Context) -> t) -> t {
-  use conn <- sqlight.with_connection(":memory")
+  use conn <- sqlight.with_connection(":memory:")
   let assert Ok(_) = sqlight.exec("DELETE FROM todos", conn)
   let context = context.Context(db: conn)
 

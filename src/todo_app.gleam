@@ -8,7 +8,7 @@ import sqlight
 pub fn main() {
   let secret_key_base = wisp.random_string(64)
 
-  use conn <- sqlight.with_connection(":memory")
+  use conn <- sqlight.with_connection(":memory:")
 
   let sql =
     "
