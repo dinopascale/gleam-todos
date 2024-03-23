@@ -4,8 +4,9 @@ import gleam/list
 import gleam/result
 import gleam/string_builder
 import todo_app/templates
+import todo_app/context.{type Context}
 
-pub fn handle(req: Request) -> Response {
+pub fn handle(req: Request, _: Context) -> Response {
   case req.method {
     http.Get -> todos()
     http.Post -> create_todo(req)
