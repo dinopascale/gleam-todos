@@ -1,4 +1,3 @@
-import gleam/string
 import gleeunit
 import gleeunit/should
 import wisp/testing
@@ -12,13 +11,15 @@ pub fn main() {
 
 fn with_context(testcase: fn(Context) -> t) -> t {
   use conn <- sqlight.with_connection(":memory:")
-  let assert Ok(_) = sqlight.exec("DELETE FROM todos", conn)
+  let sql =
+    "create table if not exists todos (id INTEGER PRIMARY KEY AUTOINCREMENT, name text not null);"
+  let assert Ok(Nil) = sqlight.exec(sql, conn)
+
   let context = context.Context(db: conn)
 
   testcase(context)
 }
 
-// gleeunit test functions end in `_test`
 pub fn home_test() {
   use ctx <- with_context
   let request = testing.get("/", [])
@@ -58,15 +59,7 @@ pub fn post_todos_happy_test() {
   let response = router.route(request, ctx)
 
   response.status
-  |> should.equal(200)
-
-  response.headers
-  |> should.equal([#("content-type", "text/html")])
-
-  response
-  |> testing.string_body
-  |> string.contains("pippo")
-  |> should.be_true()
+  |> should.equal(303)
 }
 
 pub fn post_todos_unhappy_test() {
